@@ -34,7 +34,7 @@ public class TaskRepositoryIntegrationTest {
 
     private static final String EXPECTED_TITLE = "FEED DOG";
     private static final String EXPECTED_DESCRIPTION = "FEED THE DOG 3/4 CUP OF FOOD";
-    private static final Boolean EXPECTED_ISCOMPLETE = false;
+    private static final String EXPECTED_STATUS = "Available";
 
     @Before
     public void setup() throws Exception {
@@ -49,12 +49,12 @@ public class TaskRepositoryIntegrationTest {
 
     @Test
     public void readWriteTestCase() {
-        Task newTask = new Task(EXPECTED_TITLE, EXPECTED_DESCRIPTION, EXPECTED_ISCOMPLETE);
+        Task newTask = new Task(EXPECTED_TITLE, EXPECTED_DESCRIPTION, EXPECTED_STATUS);
         repository.save(newTask);
 
         List<Task> result = (List<Task>) repository.findAll();
 
         assertTrue("Not empty", result.size() > 0);
-        assertTrue("Contains item with expected cost", result.get(0).getDescription().equals(EXPECTED_DESCRIPTION));
+        assertTrue("Contains descriptions", result.get(0).getDescription().equals(EXPECTED_DESCRIPTION));
     }
 }
