@@ -49,4 +49,9 @@ public class TaskController {
         if(statusIndex <= 2) currentTask.setStatus(status[statusIndex+1]);
         taskRepository.save(currentTask);
     }
+
+    @DeleteMapping("/tasks/{id}")
+    public void deleteTask(@PathVariable String id){
+        taskRepository.deleteById(id);
+    }
 }
