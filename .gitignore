@@ -74,6 +74,7 @@ captures/
 **/.idea/dictionaries
 **/.idea/libraries
 **/.idea/markdown-navigator/
+.idea/
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
@@ -146,6 +147,8 @@ obj/
 **/.idea/sqlDataSources.xml
 **/.idea/dynamic.xml
 **/.idea/uiDesigner.xml
+.idea/workspace.xml
+
 
 # OS-specific files
 .DS_Store
