@@ -34,7 +34,8 @@ public class TaskRepositoryIntegrationTest {
 
     private static final String EXPECTED_TITLE = "FEED DOG";
     private static final String EXPECTED_DESCRIPTION = "FEED THE DOG 3/4 CUP OF FOOD";
-    private static final String EXPECTED_STATUS = "Available";
+    private static final String EXPECTED_STATUS = "Assigned";
+    private static final String EXPECTED_ASSIGNEE = "John";
 
     @Before
     public void setup() throws Exception {
@@ -49,7 +50,7 @@ public class TaskRepositoryIntegrationTest {
 
     @Test
     public void readWriteTestCase() {
-        Task newTask = new Task(EXPECTED_TITLE, EXPECTED_DESCRIPTION, EXPECTED_STATUS);
+        Task newTask = new Task(EXPECTED_TITLE, EXPECTED_DESCRIPTION, EXPECTED_STATUS, EXPECTED_ASSIGNEE);
         repository.save(newTask);
 
         List<Task> result = (List<Task>) repository.findAll();

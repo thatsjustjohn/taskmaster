@@ -12,8 +12,6 @@ import java.util.List;
 
 @RestController
 public class TaskController {
-    private final String[] status = {"Available", "Assigned", "Accepted", "Finished"};
-
 
     private DynamoDBMapper dynamoDBMapper;
 
@@ -35,18 +33,29 @@ public class TaskController {
         return (List<Task>) taskRepository.findAll();
     }
 
+
+    @GetMapping("/users/{name}/tasks")
+    public List<Task> getUsersTasks(@PathVariable String name){
+        return taskRepository.findByAssignee(name);
+    }
+
     @PostMapping("/tasks")
     public @ResponseBody Task setTask(@ModelAttribute Task task){
-        task.setStatus(status[0]);
         taskRepository.save(task);
         return taskRepository.findById(task.getId()).get();
+    }
+
+    @PutMapping("/tasks/{id}/state/{assignee}")
+    public void assignTask(@PathVariable String id, @PathVariable String assignee){
+        Task currentTask = taskRepository.findById(id).get();
+        currentTask.setAssignee(assignee);
+        taskRepository.save(currentTask);
     }
 
     @PutMapping("/tasks/{id}/state")
     public void advanceTaskStatus(@PathVariable String id){
         Task currentTask = taskRepository.findById(id).get();
-        int statusIndex = Arrays.asList(status).indexOf(currentTask.getStatus());
-        if(statusIndex <= 2) currentTask.setStatus(status[statusIndex+1]);
+        currentTask.incrementStatus();
         taskRepository.save(currentTask);
     }
 
