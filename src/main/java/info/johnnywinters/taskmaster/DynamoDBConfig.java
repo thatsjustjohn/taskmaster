@@ -35,7 +35,7 @@ public class DynamoDBConfig {
                     .withCredentials(credentialsProvider())
                     .withRegion(Regions.US_EAST_2)
                     .build();
-            System.out.println("connecting to remote dynamo in region: " + Regions.US_WEST_1);
+            System.out.println("connecting to remote dynamo in region: " + Regions.US_EAST_2);
         } else {
             amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
                     .withEndpointConfiguration(
