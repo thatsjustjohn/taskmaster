@@ -33,9 +33,9 @@ public class DynamoDBConfig {
         if (amazonDynamoDBEndpoint.isEmpty()) {
             amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
                     .withCredentials(credentialsProvider())
-                    .withRegion(Regions.US_EAST_2)
+                    .withRegion(Regions.US_WEST_2)
                     .build();
-            System.out.println("connecting to remote dynamo in region: " + Regions.US_EAST_2);
+            System.out.println("connecting to remote dynamo in region: " + Regions.US_WEST_2);
         } else {
             amazonDynamoDB = AmazonDynamoDBClientBuilder.standard()
                     .withEndpointConfiguration(
