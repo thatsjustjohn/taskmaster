@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class TaskController {
 
+    private S3Client s3Client;
+
     private DynamoDBMapper dynamoDBMapper;
 
     @Autowired
@@ -22,6 +25,11 @@ public class TaskController {
 
     @Autowired
     TaskRepository taskRepository;
+
+    @Autowired
+    TaskController(S3Client s3Client) {
+        this.s3Client = s3Client;
+    }
 
     // Specify the route for this method
     @GetMapping("/hello")
@@ -45,6 +53,15 @@ public class TaskController {
     public @ResponseBody Task setTask(@ModelAttribute Task task){
         taskRepository.save(task);
         return taskRepository.findById(task.getId()).get();
+    }
+
+    @PostMapping("/tasks/{id}/images")
+    public @ResponseBody Task uploadImage(@PathVariable String id, @RequestPart(value = "file") MultipartFile file){
+        String pic = this.s3Client.uploadFile(file);
+        Task task = taskRepository.findById(id).get();
+        task.setPic(pic);
+        taskRepository.save(task);
+        return task;
     }
 
     @PutMapping("/tasks/{id}/state/{assignee}")

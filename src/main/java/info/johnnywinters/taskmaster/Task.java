@@ -10,6 +10,7 @@ public class Task {
     private String id;
     private String title;
     private String description;
+    private String pic;
     private String status = "Available";
     private String assignee;
 
@@ -21,6 +22,11 @@ public class Task {
         if(assignee != null){
             this.setAssignee(assignee);
         }
+    }
+
+    public Task(String title, String description, String status, String assignee, String pic){
+        this(title, description, status, assignee);
+        this.pic = pic;
     }
 
     public void incrementStatus(){
@@ -55,6 +61,15 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @DynamoDBAttribute
+    public String getPic() {
+        return this.pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     @DynamoDBAttribute
