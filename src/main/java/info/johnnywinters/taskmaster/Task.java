@@ -11,6 +11,7 @@ public class Task {
     private String title;
     private String description;
     private String pic;
+    private String resizedpic;
     private String status = "Available";
     private String assignee;
 
@@ -70,6 +71,15 @@ public class Task {
 
     public void setPic(String pic) {
         this.pic = pic;
+    }
+
+    @DynamoDBAttribute
+    public String getResizedPic() {
+        return this.resizedpic;
+    }
+
+    public void setResizedPic(String resizedPic) {
+        this.resizedpic = resizedPic;
     }
 
     @DynamoDBAttribute

@@ -59,6 +59,7 @@ public class TaskController {
     public @ResponseBody Task uploadImage(@PathVariable String id, @RequestPart(value = "file") MultipartFile file){
         String pic = this.s3Client.uploadFile(file);
         Task task = taskRepository.findById(id).get();
+        task.setResizedPic("https://taskmaster-johnnyw-images-resized.s3-us-west-2.amazonaws.com/resized-" + pic.substring(61));
         task.setPic(pic);
         taskRepository.save(task);
         return task;
