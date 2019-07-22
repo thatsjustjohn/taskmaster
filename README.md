@@ -4,8 +4,13 @@ Taskmaster is a RESTFUL Api that allows you to add / edit / delete tasks for use
 
 Currently setting up paths and creating tables for stored of data.
 
-Taskmaster users DynamoDB for storage data.
-It uploads files to S3, and there is a Lambda function that resizes images to 50x50, so both image urls full size and resized will be saved into dynamoDB and available for display on the frontend
+Taskmaster:
+Uses DynamoDB for storage data.
+Adds new tasks to the list.
+Sends an email to an administrator when a task is completed
+Sends a text to the person to whom a task is assigned (when it gets assigned)
+When a task is deleted from Dynamo, trigger a message that will fire a lambda to remove any images associated to it from S3
+It uploads files to S3, and there is a Lambda function that resizes images to over 350K to 50x50, so both image urls full size and resized will be saved into dynamoDB and available for display on the frontend
 
 ## Setup
 * Clone the repo via github\
